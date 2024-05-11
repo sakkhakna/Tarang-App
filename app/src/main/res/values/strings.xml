@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">Tarang-App</string>
+    <string name="hello">Hello,</string>
+    <string name="name">Chhay</string>
+    <string name="current_reservation">Current Reservation</string>
+    <string name="venue">Venue: F2</string>
+    <string name="type">Type: Football</string>
+    <string name="date">Sunday, 12 June</string>
+    <string name="time">5:00 - 7:00 PM</string>
+    <string name="warning">Please arrive 30 min early</string>
+
+    <string name="booking">Booking</string>
+    <string name="upcoming">Upcoming</string>
+    <string name="completed">Completed</string>
+
+    <string name="calender_icon">Calender Icon</string>
+    <string name="clock_icon">Clock Icon</string>
+    <string name="card">Card</string>
+    <string name="user_profile">User Profile</string>
+
+    <string name="inbox">Inbox</string>
+    <string name="unseen">Unseen (1)</string>
+    <string name="seen">Seen (1)</string>
+    <string name="reminder">Reminder</string>
+    <string name="Welcome">Welcome</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore .</string>
+
 </resources>
