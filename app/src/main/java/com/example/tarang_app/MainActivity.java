@@ -19,15 +19,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 //        setContentView(R.layout.activity_main);
 
+        replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.menuHome) {
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.menuInbox) {
                 replaceFragment(new InboxFragment());
-            }  else if (itemId == R.id.menuBooking) {
+            } else if (itemId == R.id.menuBooking) {
                 replaceFragment(new BookingFragment());
+            } else if (itemId == R.id.menuProfile) {
+                replaceFragment(new ProfileFragment());
             }
+
             return true;
         });
     }

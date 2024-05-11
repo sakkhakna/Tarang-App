@@ -13,7 +13,7 @@
         android:icon="@drawable/message_icon"
         android:title="Inbox" />
     <item
-        android:id="@+id/menuUser"
+        android:id="@+id/menuProfile"
         android:icon="@drawable/user_icon"
-        android:title="User" />
+        android:title="Profile" />
 </menu>
