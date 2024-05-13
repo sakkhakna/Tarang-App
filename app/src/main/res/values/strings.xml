@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">Tarang-App</string>
+    <string name="tarang">Tarang</string>
+    <string name="welcome_to">Welcome to</string>
     <string name="hello">Hello,</string>
     <string name="name">Chhay</string>
     <string name="current_reservation">Current Reservation</string>
     <string name="venue">Venue: F2</string>
     <string name="type">Type: Football</string>
     <string name="date">Sunday, 12 June</string>
-    <string name="time">5:00 - 7:00 PM</string>
+    <string name="time">5:00 &#8211; 7:00 PM</string>
     <string name="warning">Please arrive 30 min early</string>
 
     <string name="booking">Booking</string>
@@ -22,8 +24,16 @@
     <string name="unseen">Unseen (1)</string>
     <string name="seen">Seen (1)</string>
     <string name="reminder">Reminder</string>
-    <string name="Welcome">Welcome</string>
+    <string name="welcome">Welcome</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore .</string>
 
     <string name="profile">Profile</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+    <string name="already_have">Already have an account?</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="create_acc">Create new account?</string>
+
 </resources>
