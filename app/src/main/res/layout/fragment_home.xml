@@ -166,59 +166,7 @@
                 android:layout_gravity="end"
                 android:text="@string/warning"
                 android:textColor="@color/design_default_color_error" />
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_marginVertical="10dp">-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="18dp"-->
-<!--                        android:layout_height="18dp"-->
-<!--                        android:src="@drawable/calendar_icon"-->
-<!--                        android:contentDescription="@string/calender_icon"-->
-<!--                        />-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/date"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:paddingHorizontal="8dp"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal"-->
-<!--                    android:layout_gravity="end">-->
-<!--                    <ImageView-->
-<!--                        android:layout_width="18dp"-->
-<!--                        android:layout_height="18dp"-->
-<!--                        android:src="@drawable/clock_icon"-->
-<!--                        android:contentDescription="@string/clock_icon"-->
-<!--                        />-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/time"-->
-<!--                        android:textSize="14sp"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:paddingHorizontal="8dp"-->
-<!--                        />-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@string/warning"-->
-<!--                android:textColor="@color/design_default_color_error"-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_marginEnd="16dp"-->
-<!--                />-->
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"

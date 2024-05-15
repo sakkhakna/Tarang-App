@@ -49,12 +49,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        android:autofillHints="phone"
         android:background="@drawable/input_shape"
         android:ems="10"
         android:hint="@string/phone_number"
-        android:autofillHints="phone"
         android:inputType="phone"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,31 +62,46 @@
         app:layout_constraintTop_toBottomOf="@+id/tarang" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/editPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:autofillHints="password"
         android:background="@drawable/input_shape"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
-        android:autofillHints="password"
         android:padding="16dp"
         app:layout_constraintEnd_toEndOf="@+id/editTextPhone"
         app:layout_constraintStart_toStartOf="@+id/editTextPhone"
         app:layout_constraintTop_toBottomOf="@+id/editTextPhone" />
 
+    <EditText
+        android:id="@+id/editConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:autofillHints="password"
+        android:background="@drawable/input_shape"
+        android:ems="10"
+        android:hint="@string/confirm_pass"
+        android:inputType="textPassword"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/editPassword"
+        app:layout_constraintStart_toStartOf="@+id/editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editPassword" />
+
     <Button
         android:id="@+id/signup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button_shape"
         android:text="@string/signup"
         android:textColor="@color/white"
-        android:background="@drawable/button_shape"
-        app:layout_constraintEnd_toEndOf="@+id/editTextTextPassword"
-        app:layout_constraintStart_toStartOf="@+id/editTextTextPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
+        app:layout_constraintEnd_toEndOf="@+id/editPassword"
+        app:layout_constraintStart_toStartOf="@+id/editPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editConfirmPassword" />
 
     <TextView
         android:id="@+id/already_acc"
@@ -110,6 +125,8 @@
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/already_acc" />
+
+
 
     <!--    <TextView-->
 <!--        android:id="@+id/signin"-->
