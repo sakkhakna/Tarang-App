@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -31,7 +33,7 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signin);
 
-        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
 
         signIn_btn = findViewById(R.id.signIn_btn);
         signIn_btn.setOnClickListener(new View.OnClickListener() {
@@ -63,10 +65,14 @@ public class SignInActivity extends AppCompatActivity {
             return;
         }
 
+        // Log phone number and password as a JSON object
+        String logMessage = new Gson().toJson(new AuthRequest(phoneNumber, password));
+        Log.d("SignInActivity", logMessage);
+
         AuthRequest authRequest = new AuthRequest(phoneNumber, password);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.tarang.site/")
+                .baseUrl("https://api.tarang.site")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -76,19 +82,42 @@ public class SignInActivity extends AppCompatActivity {
         call.enqueue(new Callback<AuthResponse>() {
             @Override
             public void onResponse(Call<AuthResponse> call, Response<AuthResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     AuthResponse authResponse = response.body();
-                    String accessToken = authResponse.getAccessToken();
-                    Toast.makeText(SignInActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                    Log.d("SignInActivity", "Response Code: " + response.code());
+                    if (authResponse != null) {
+                        String accessToken = authResponse.getToken();
+                        Log.d("SignInActivity", "Response Body: " + new Gson().toJson(authResponse));
+                        if (accessToken != null) {
+                            // Token is not null, proceed to store it
+                            Toast.makeText(SignInActivity.this, "Sign in successful", Toast.LENGTH_SHORT).show();
+                            Log.d("SignInActivity", "Stored token: " + accessToken);
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("accessToken", accessToken);
-                    editor.apply();
+                            // Store token in SharedPreferences
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("token", accessToken);
+                            editor.apply();
 
-                    Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish(); // Close the sign-in activity
+                            // Retrieve stored token
+                            String storedToken = sharedPreferences.getString("token", null);
+                            Log.d("SignInActivity", "Retrieved token: " + storedToken);
+
+                            // Proceed to the next activity
+                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        } else {
+                            // Token is null
+                            Log.e("SignInActivity", "Access token is null");
+                            Toast.makeText(SignInActivity.this, "Token is null", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Response body is null
+                        Log.e("SignInActivity", "Response body is null");
+                        Toast.makeText(SignInActivity.this, "Response body is null", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
+                    // Response is not successful
+                    Log.e("SignInActivity", "Response is not successful. Code: " + response.code());
                     Toast.makeText(SignInActivity.this, "Invalid credentials or server error", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -100,6 +129,7 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public static class AuthRequest {
         public String phoneNumber;
@@ -114,10 +144,12 @@ public class SignInActivity extends AppCompatActivity {
     public static class AuthResponse {
         public String token;
 
-        public String getAccessToken() {
+        public String getToken() {
             return token;
         }
     }
+
+
 
     public interface ApiService {
         @POST("/api/login")

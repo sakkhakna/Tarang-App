@@ -6,8 +6,9 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 
 public interface ApiService {
     @GET("/api/reservation")
-    Call<List<Reservation>> loadReservationList();
+    Call<List<Reservation>> loadReservationList(@Header("Authorization") String authorization);
 }

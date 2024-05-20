@@ -1,5 +1,8 @@
 package com.example.tarang_app;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -27,77 +30,40 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BookingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class BookingFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public BookingFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment BookingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static BookingFragment newInstance(String param1, String param2) {
-        BookingFragment fragment = new BookingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    String accessToken;
 
     private Button backHome;
     private FragmentBookingBinding binding;
+
+    private ReservationAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-
         binding = FragmentBookingBinding.inflate(inflater, container, false);
-        loadReservationList();
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user", MODE_PRIVATE);
+        String retrievedAccessToken = sharedPreferences.getString("accessToken", null);
 
-        View view = inflater.inflate(R.layout.fragment_booking, container, false);
+        if(retrievedAccessToken != null && !retrievedAccessToken.isEmpty()){
+            Log.d("accessToken", retrievedAccessToken);
+        }else{
+            Log.d("accessToken", "No access token found");
+        }
 
-        ImageView backHome = view.findViewById(R.id.backHome);
-        backHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, new HomeFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        accessToken = retrievedAccessToken;
 
-        return view;
+        if (accessToken != null) {
+            loadReservationList();
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        adapter = new ReservationAdapter();
+        binding.recyclerView.setAdapter(adapter);
+
+        return binding.getRoot();
     }
 
     private void loadReservationList() {
@@ -106,12 +72,14 @@ public class BookingFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiService apiService = httpClient.create(ApiService.class);
-        Call<List<Reservation>> task = apiService.loadReservationList();
+        Call<List<Reservation>> task = apiService.loadReservationList("Bearer " + accessToken);
         task.enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if (response.isSuccessful()) {
-                    showReservations(response.body());
+                    List<Reservation> reservations = response.body();
+                    Log.d("BookingFragment", "Reservations loaded: " + reservations);
+                    adapter.submitList(reservations);
                 } else {
                     Toast.makeText(getContext(), "Failed to load card list", Toast.LENGTH_SHORT).show();
                 }
@@ -119,22 +87,9 @@ public class BookingFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Reservation>> call, Throwable throwable) {
+                Log.e("BookingFragment", "Error loading reservations", throwable);
                 Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void showReservations(List<Reservation> reservations) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        binding.recyclerView.setLayoutManager(layoutManager);
-        ReservationAdapter adapter = new ReservationAdapter();
-        adapter.submitList(reservations);
-        adapter.setOnClickListener(new ReservationAdapter.OnClickListener() {
-            @Override
-            public void onClick(int position, Reservation reservation) {
-                Toast.makeText(getContext(), "Reservation clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-        binding.recyclerView.setAdapter(adapter);
     }
 }

@@ -4,13 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class Reservation {
     private int id;
-    private String venueName;
-    private String sportType;
+    private venue myvenue;
     private String date;
     private String start_time;
     private String end_time;
-    @SerializedName("image_url")
-    private String imageUrl;
+
+    public venue getMyvenue() {
+        return myvenue;
+    }
+
+    public void setMyvenue(venue myvenue) {
+        this.myvenue = myvenue;
+    }
 
     public int getId() {
         return id;
@@ -18,22 +23,6 @@ public class Reservation {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getVenueName() {
-        return venueName;
-    }
-
-    public void setVenueName(String venueName) {
-        this.venueName = venueName;
-    }
-
-    public String getSportType() {
-        return sportType;
-    }
-
-    public void setSportType(String sportType) {
-        this.sportType = sportType;
     }
 
     public String getDate() {
@@ -60,11 +49,5 @@ public class Reservation {
         this.end_time = end_time;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }
+
