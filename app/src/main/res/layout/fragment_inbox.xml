@@ -17,6 +17,7 @@
             android:background="@color/white"
             >
             <ImageView
+                android:id="@+id/backHome"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/arrow_left_icon"

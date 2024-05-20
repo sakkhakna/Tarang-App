@@ -5,6 +5,7 @@
     <string name="hello">Hello,</string>
     <string name="name">Chhay</string>
     <string name="fullname">Chengchhay Sun</string>
+    <string name="phone_number_012">012 234 456</string>
     <string name="current_reservation">Current Reservation</string>
     <string name="venue">Venue: F2</string>
     <string name="type">Type: Football</string>

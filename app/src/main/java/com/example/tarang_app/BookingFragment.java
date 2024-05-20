@@ -3,10 +3,29 @@ package com.example.tarang_app;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.tarang_app.adapters.ReservationAdapter;
+import com.example.tarang_app.databinding.FragmentBookingBinding;
+import com.example.tarang_app.models.Reservation;
+import com.example.tarang_app.services.ApiService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,10 +74,67 @@ public class BookingFragment extends Fragment {
         }
     }
 
+    private Button backHome;
+    private FragmentBookingBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_booking, container, false);
+
+        binding = FragmentBookingBinding.inflate(inflater, container, false);
+        loadReservationList();
+
+        View view = inflater.inflate(R.layout.fragment_booking, container, false);
+
+        ImageView backHome = view.findViewById(R.id.backHome);
+        backHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.frame_layout, new HomeFragment());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
+        return view;
+    }
+
+    private void loadReservationList() {
+        Retrofit httpClient = new Retrofit.Builder()
+                .baseUrl("https://api.tarang.site")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = httpClient.create(ApiService.class);
+        Call<List<Reservation>> task = apiService.loadReservationList();
+        task.enqueue(new Callback<List<Reservation>>() {
+            @Override
+            public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
+                if (response.isSuccessful()) {
+                    showReservations(response.body());
+                } else {
+                    Toast.makeText(getContext(), "Failed to load card list", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reservation>> call, Throwable throwable) {
+                Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showReservations(List<Reservation> reservations) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        binding.recyclerView.setLayoutManager(layoutManager);
+        ReservationAdapter adapter = new ReservationAdapter();
+        adapter.submitList(reservations);
+        adapter.setOnClickListener(new ReservationAdapter.OnClickListener() {
+            @Override
+            public void onClick(int position, Reservation reservation) {
+                Toast.makeText(getContext(), "Reservation clicked", Toast.LENGTH_SHORT).show();
+            }
+        });
+        binding.recyclerView.setAdapter(adapter);
     }
 }
