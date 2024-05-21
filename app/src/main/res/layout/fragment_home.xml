@@ -7,10 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/background"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        >
 
         <RelativeLayout
             android:id="@+id/header"
@@ -51,248 +53,323 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginVertical="24dp"
                 android:background="@drawable/profile_shape"
+                android:src="@drawable/profile_image"
+                android:clipToOutline="true"
                 android:contentDescription="@string/user_profile" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="175dp"
-                android:layout_height="175dp"
-                android:layout_margin="16dp"
-                android:background="@drawable/menu_shape" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:padding="25dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/round_shape"
-                    android:src="@drawable/football_icon" />
-                <ImageView
-                    android:padding="25dp"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/round_shape"
-                    android:src="@drawable/football_icon" />
-            </LinearLayout>
-
-        </LinearLayout>
-
         <TextView
+            android:id="@+id/fav_sport"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/current_reservation"
+            android:layout_margin="16dp"
+            android:text="Chose Your Favorite Sport"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="8dp"
-            android:background="@drawable/card_shape"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:gravity="center">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/football"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/card_shape_gray" />
-                <LinearLayout
-                    android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:background="@drawable/menu_shape"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/football_icon" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="14dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/venue"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/type"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
+                    android:paddingStart="12dp"
+                    android:text="@string/football"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/volleyball"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:background="@drawable/menu_shape"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/volleyball_icon" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
-
-                    <ImageView
-                        android:id="@+id/calender_icon"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:contentDescription="@string/calender_icon"
-                        android:src="@drawable/calendar_icon" />
-
-                    <TextView
-                        android:id="@+id/date_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/date"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
-
-                    <ImageView
-                        android:id="@+id/clock_icon"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:contentDescription="@string/clock_icon"
-                        android:src="@drawable/clock_icon" />
-
-                    <TextView
-                        android:id="@+id/time_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/time"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/warning"
-                android:textColor="@color/design_default_color_error" />
-
+                    android:paddingStart="12dp"
+                    android:text="Volleyball"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="8dp"
-            android:background="@drawable/card_shape"
-            android:padding="16dp">
+            android:orientation="horizontal"
+            android:gravity="center">
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/pingpong"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:background="@drawable/card_shape_gray" />
-                <LinearLayout
-                    android:layout_gravity="center"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:background="@drawable/menu_shape"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/pingpong_icon" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="14dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/venue"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/type"
-                        android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
+                    android:paddingStart="12dp"
+                    android:text="Ping Pong"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
             </LinearLayout>
-            <RelativeLayout
-                android:layout_width="match_parent"
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="match_parent" />
+            <LinearLayout
+                android:id="@+id/basketball"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:background="@drawable/menu_shape"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:src="@drawable/basketball_icon" />
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
-
-                    <ImageView
-                        android:id="@+id/calender_icon2"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:contentDescription="@string/calender_icon"
-                        android:src="@drawable/calendar_icon" />
-
-                    <TextView
-                        android:id="@+id/date_text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/date"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:orientation="horizontal"
-                    android:paddingVertical="12dp">
-
-                    <ImageView
-                        android:id="@+id/clock_icon2"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:contentDescription="@string/clock_icon"
-                        android:src="@drawable/clock_icon" />
-
-                    <TextView
-                        android:id="@+id/time_text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingHorizontal="8dp"
-                        android:text="@string/time"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/warning"
-                android:textColor="@color/design_default_color_error" />
+                    android:paddingStart="12dp"
+                    android:text="Basketball"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/currentReservation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="Current Reservation"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="16dp" />
+
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_marginHorizontal="16dp"-->
+        <!--            android:background="@drawable/menu_shape"-->
+        <!--            android:gravity="center_horizontal">-->
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:text="Chose Your Favorite Sport"-->
+        <!--                android:textColor="@color/black"-->
+        <!--                android:textStyle="bold"-->
+        <!--                android:textSize="20sp"-->
+        <!--                />-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content">-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="70dp"-->
+        <!--                    -->
+        <!--                    >-->
+        <!--                    <ImageView-->
+        <!--                        android:layout_width="40dp"-->
+        <!--                        android:layout_height="40dp"-->
+        <!--                        android:background="@drawable/round_shape"-->
+        <!--                        android:src="@drawable/football_icon" />-->
+        <!--                    <TextView-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="Football"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="24sp"-->
+        <!--                        android:textStyle="bold"/>-->
+        <!--                </LinearLayout>-->
+        <!--                -->
+
+<!--                    </LinearLayout>-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="175dp"-->
+        <!--                android:layout_height="175dp"-->
+        <!--                android:layout_margin="16dp"-->
+        <!--                android:background="@drawable/menu_shape" />-->
+
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="horizontal">-->
+        <!--                <ImageView-->
+        <!--                    android:padding="25dp"-->
+        <!--                    android:layout_width="80dp"-->
+        <!--                    android:layout_height="80dp"-->
+        <!--                    android:background="@drawable/round_shape"-->
+        <!--                    android:src="@drawable/football_icon" />-->
+        <!--                <ImageView-->
+        <!--                    android:padding="25dp"-->
+        <!--                    android:layout_width="80dp"-->
+        <!--                    android:layout_height="80dp"-->
+        <!--                    android:background="@drawable/round_shape"-->
+        <!--                    android:src="@drawable/football_icon" />-->
+        <!--            </LinearLayout>-->
+
+<!--                </LinearLayout>-->
+
+        <!--        <TextView-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginStart="16dp"-->
+        <!--            android:text="@string/current_reservation"-->
+        <!--            android:textColor="@color/black"-->
+        <!--            android:textSize="20sp"-->
+        <!--            android:textStyle="bold" />-->
+
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:layout_marginHorizontal="16dp"-->
+        <!--            android:layout_marginVertical="8dp"-->
+        <!--            android:background="@drawable/card_shape"-->
+        <!--            android:padding="16dp">-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="horizontal">-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="60dp"-->
+        <!--                    android:layout_height="60dp"-->
+        <!--                    android:background="@drawable/card_shape_gray" />-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:orientation="vertical"-->
+        <!--                    android:layout_marginStart="14dp">-->
+        <!--                    <TextView-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="@string/venue"-->
+        <!--                        android:textStyle="bold"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="16sp" />-->
+        <!--                    <TextView-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="@string/type"-->
+        <!--                        android:textStyle="bold"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="12sp" />-->
+        <!--                </LinearLayout>-->
+
+        <!--            </LinearLayout>-->
+        <!--            <RelativeLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:orientation="horizontal">-->
+
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    android:paddingVertical="12dp">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/calender_icon"-->
+        <!--                        android:layout_width="18dp"-->
+        <!--                        android:layout_height="18dp"-->
+        <!--                        android:contentDescription="@string/calender_icon"-->
+        <!--                        android:src="@drawable/calendar_icon" />-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/date_text"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:paddingHorizontal="8dp"-->
+        <!--                        android:text="@string/date"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="14sp" />-->
+        <!--                </LinearLayout>-->
+
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_alignParentEnd="true"-->
+        <!--                    android:orientation="horizontal"-->
+        <!--                    android:paddingVertical="12dp">-->
+
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/clock_icon"-->
+        <!--                        android:layout_width="18dp"-->
+        <!--                        android:layout_height="18dp"-->
+        <!--                        android:contentDescription="@string/clock_icon"-->
+        <!--                        android:src="@drawable/clock_icon" />-->
+
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/time_text"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:paddingHorizontal="8dp"-->
+        <!--                        android:text="@string/time"-->
+        <!--                        android:textColor="@color/black"-->
+        <!--                        android:textSize="14sp" />-->
+        <!--                </LinearLayout>-->
+        <!--            </RelativeLayout>-->
+
+        <!--            <TextView-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_gravity="end"-->
+        <!--                android:text="@string/warning"-->
+        <!--                android:textColor="@color/design_default_color_error" />-->
+
+        <!--        </LinearLayout>-->
 
 
     </LinearLayout>

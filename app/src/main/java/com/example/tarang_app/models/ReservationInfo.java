@@ -1,8 +1,6 @@
 package com.example.tarang_app.models;
 
-import com.google.gson.annotations.SerializedName;
-
-public class Reservation {
+public class ReservationInfo {
     private int id;
     private String venue_name;
     private String date;
@@ -50,4 +48,3 @@ public class Reservation {
     }
 
 }
-

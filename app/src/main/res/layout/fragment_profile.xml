@@ -41,6 +41,8 @@
             android:background="@drawable/profile_shape"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
+            android:src="@drawable/profile_image"
+            android:clipToOutline="true"
         />
 
         <TextView
