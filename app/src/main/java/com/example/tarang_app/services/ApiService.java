@@ -10,5 +10,5 @@ import retrofit2.http.Header;
 
 public interface ApiService {
     @GET("/api/reservation")
-    Call<List<Reservation>> loadReservationList(@Header("Authorization") String authorization);
+    Call<Reservation> loadReservationList(@Header("Authorization") String authorization);
 }

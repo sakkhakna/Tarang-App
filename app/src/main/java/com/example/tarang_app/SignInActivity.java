@@ -130,13 +130,12 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-
     public static class AuthRequest {
-        public String phoneNumber;
+        public String phone;
         public String password;
 
         public AuthRequest(String phoneNumber, String password) {
-            this.phoneNumber = phoneNumber;
+            this.phone = phoneNumber;
             this.password = password;
         }
     }
@@ -148,8 +147,6 @@ public class SignInActivity extends AppCompatActivity {
             return token;
         }
     }
-
-
 
     public interface ApiService {
         @POST("/api/login")
