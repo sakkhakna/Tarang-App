@@ -43,14 +43,14 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        signup_btn = findViewById(R.id.signup_btn);
-        signup_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
-                startActivity(intent);
-            }
-        });
+//        signup_btn = findViewById(R.id.signup_btn);
+//        signup_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
     public void authenticateUser() {
@@ -108,7 +108,7 @@ public class SignInActivity extends AppCompatActivity {
                         } else {
                             // Token is null
                             Log.e("SignInActivity", "Access token is null");
-                            Toast.makeText(SignInActivity.this, "Token is null", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this, "Incorrect Phone Number or Password", Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         // Response body is null

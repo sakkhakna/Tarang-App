@@ -1,64 +1,95 @@
 package com.example.tarang_app;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.example.tarang_app.adapters.ReservationAdapter;
+import com.example.tarang_app.databinding.FragmentHomeBinding;
+import com.example.tarang_app.models.Reservation;
+import com.example.tarang_app.services.ApiService;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
+    private FragmentHomeBinding binding;
+    private ReservationAdapter adapter;
+    String accessToken;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String retrievedAccessToken = sharedPreferences.getString("token", null);
+
+        if(retrievedAccessToken != null && !retrievedAccessToken.isEmpty()){
+            Log.d("accessToken", retrievedAccessToken);
+        }else{
+            Log.d("accessToken", "No access token found");
+        }
+
+        accessToken = retrievedAccessToken;
+
+        if (accessToken != null) {
+            loadReservationList();
+        }
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        adapter = new ReservationAdapter();
+        binding.recyclerView.setAdapter(adapter);
+
+        return binding.getRoot();
+//        return inflater.inflate(R.layout.fragment_home, container, false);
+//
+    }
+
+    private void loadReservationList() {
+        Retrofit httpClient = new Retrofit.Builder()
+                .baseUrl("https://api.tarang.site")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiService apiService = httpClient.create(ApiService.class);
+        Call<List<Reservation>> task = apiService.loadReservationList("Bearer " + accessToken);
+        task.enqueue(new Callback<List<Reservation>>() {
+            @Override
+            public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
+                if (response.isSuccessful()) {
+                    List<Reservation> reservations = response.body();
+                    Log.d("API Response", "Success: " + reservations.toString());
+                    adapter.submitList(reservations);
+                } else {
+                    Log.d("API Response", "Response Code: " + response.code());
+                    Log.d("API Response", "Error Body: " + response.errorBody().toString());
+                    Toast.makeText(getContext(), "Failed to load reservation list", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Reservation>> call, Throwable throwable) {
+                Log.e("BookingFragment", "Error loading reservations", throwable);
+                Toast.makeText(getContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

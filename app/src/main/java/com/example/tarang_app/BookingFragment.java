@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
@@ -14,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.tarang_app.adapters.ReservationAdapter;
@@ -32,10 +30,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookingFragment extends Fragment {
     String accessToken;
-
     private Button backHome;
     private FragmentBookingBinding binding;
-
     private ReservationAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,8 +39,8 @@ public class BookingFragment extends Fragment {
 
         // Inflate the layout for this fragment
         binding = FragmentBookingBinding.inflate(inflater, container, false);
-        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("user", MODE_PRIVATE);
-        String retrievedAccessToken = sharedPreferences.getString("accessToken", null);
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String retrievedAccessToken = sharedPreferences.getString("token", null);
 
         if(retrievedAccessToken != null && !retrievedAccessToken.isEmpty()){
             Log.d("accessToken", retrievedAccessToken);
@@ -78,10 +74,12 @@ public class BookingFragment extends Fragment {
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if (response.isSuccessful()) {
                     List<Reservation> reservations = response.body();
-                    Log.d("BookingFragment", "Reservations loaded: " + reservations);
+                    Log.d("API Response", "Success: " + reservations.toString());
                     adapter.submitList(reservations);
                 } else {
-                    Toast.makeText(getContext(), "Failed to load card list", Toast.LENGTH_SHORT).show();
+                    Log.d("API Response", "Response Code: " + response.code());
+                    Log.d("API Response", "Error Body: " + response.errorBody().toString());
+                    Toast.makeText(getContext(), "Failed to load reservation list", Toast.LENGTH_SHORT).show();
                 }
             }
 
